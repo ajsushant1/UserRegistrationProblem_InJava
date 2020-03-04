@@ -5,6 +5,29 @@ import org.junit.Test;
 public class UserRegistrationTest {
     //TEST CASE FOR VALID FIRST NAME
     UserRegistration userRegistration=new UserRegistration();
+    String [] inputValidEmail={"abc@yahoo.com",
+                                "abc-100@yahoo.com",
+                                "abc.100@yahoo.com",
+                                "abc111@abc.com",
+                                "abc-100@abc.net",
+                                "abc.100@abc.com.au",
+                                "abc@1.com",
+                                "abc@gmail.com.com",
+                                "abc+100@gmail.com"};
+
+    String [] inputInvalidEmail={"abc","abc@.com.my",
+                                    "abc123@gmail.a",
+                                    "abc123@.com",
+                                    "abc123@.com.com",
+                                    ".abc@abc.com",
+                                    "abc()*@gmail.com",
+                                    "abc@%*.com",
+                                    "abc..2002@gmail.com",
+                                    "abc.@gmail.com",
+                                    "abc@abc@gmail.com",
+                                    "abc@gmail.com.1a",
+                                    "abc@gmail.com.aa.au"};
+
     @Test
     public void givenFirstName_WhenValid_ThenReturn() {
         boolean result = userRegistration.validateFirstLastName("Nilesh");
@@ -27,6 +50,23 @@ public class UserRegistrationTest {
     public void givenLastName_WhenInValid_ThenReturn() {
         boolean result = userRegistration.validateFirstLastName("patil");
         Assert.assertFalse(result);
-
+    }
+    //TEST CASE FOR VALID EMAIL ID
+    @Test
+    public void givenEmail_WhenValid_ThenReturn() {
+        for (int index=0;index<inputValidEmail.length;index++) {
+            boolean result = userRegistration.validateEmail(inputValidEmail[index]);
+            System.out.println(inputValidEmail[index]+" : "+result);
+            Assert.assertTrue(result);
+        }
+    }
+    //TEST CASE FOR INVALID EMAIL ID
+    @Test
+    public void givenEmail_WhenInvalid_ThenReturn() {
+        for (int index=0;index<inputInvalidEmail.length;index++) {
+            boolean result = userRegistration.validateEmail(inputInvalidEmail[index]);
+            System.out.println(inputInvalidEmail[index]+" : "+result);
+            Assert.assertFalse(result);
+        }
     }
 }
