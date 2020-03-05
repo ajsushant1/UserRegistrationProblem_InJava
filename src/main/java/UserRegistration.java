@@ -5,6 +5,7 @@ public class UserRegistration {
     public String firstAndLastNamePattern="^[A-Z][a-zA-z]{2,}$";
     //PATTERN FOR EMAIL ID
     public String emailPattern="^[a-zA-Z0-9]+([._+-]?[a-zA-Z0-9]+)?[@][a-zA-Z0-9]+[.][a-zA-Z]{2,3}([.][a-zA-Z]{2,3})?$";
+    public String mobileNumberPattern="^[0-9]{2}[ ][0-9]{10}$";
 
     //METHOD TO VALIDATE FIRST NAME OR LAST NAME OF USER
     public boolean validateFirstLastName(String firstOrLastName) {
@@ -13,6 +14,10 @@ public class UserRegistration {
     //METHOD TO VALIDATE EMAIL OF USER
     public boolean validateEmail(String email){
         return (Pattern.matches(emailPattern,email));
+    }
+    //METHOD TO VALIDATE MOBILE NUMBER OF USER
+    public boolean validateMobileNumber(String mobileNumber) {
+        return(Pattern.matches(mobileNumberPattern,mobileNumber));
     }
     //MAIN METHOD
     public static void main(String[] args) {
