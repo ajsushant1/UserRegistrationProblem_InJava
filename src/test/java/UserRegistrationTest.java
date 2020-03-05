@@ -81,4 +81,16 @@ public class UserRegistrationTest {
         boolean result = userRegistration.validateMobileNumber("91 987654321");
         Assert.assertFalse(result);
     }
+    //TEST CASE FOR VALID PASSWORD(MINIMUM 8 CHARACTERS)
+    @Test
+    public void givenPassword_WhenValid_ThenReturn() {
+        boolean result = userRegistration.validatePassword("nevergiveup46");
+        Assert.assertTrue(result);
+    }
+    //TEST CASE FOR INVALID PASSWORD(MINIMUM 8 CHARACTERS)
+    @Test
+    public void givenPassword_WhenInvalid_ThenReturn() {
+        boolean result = userRegistration.validatePassword("qwerty");
+        Assert.assertFalse(result);
+    }
 }
