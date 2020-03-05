@@ -8,7 +8,7 @@ public class UserRegistration {
     //PATTERN FOR MOBILE NUMBER
     public String mobileNumberPattern="^[0-9]{2}[ ][0-9]{10}$";
     //PATTERN FOR PASSWORD
-    public String passwordPattern="^[a-zA-Z0-9]{8,}$";
+    public String passwordPattern="^(?=.*[A-Z])(?=.*?[a-z]).{8,}$";
 
     //METHOD TO VALIDATE FIRST NAME OR LAST NAME OF USER
     public boolean validateFirstLastName(String firstOrLastName) {
