@@ -85,9 +85,10 @@ public class UserRegistrationTest {
     //MINIMUM 8 CHARACTERS
     //AT LEAST 1 UPPER CASE CHARACTER
     //AT LEAST 1 NUMERIC NUMBER
+    //EXACTLY 1 SPECIAL CHARACTER
     @Test
     public void givenPassword_WhenValid_ThenReturn() {
-        boolean result = userRegistration.validatePassword("NeverGiveUp46");
+        boolean result = userRegistration.validatePassword("NeverGiveUp#46");
         Assert.assertTrue(result);
     }
     //TEST CASE FOR INVALID PASSWORD
