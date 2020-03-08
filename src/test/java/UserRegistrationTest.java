@@ -5,6 +5,7 @@ import org.junit.Test;
 public class UserRegistrationTest {
     //TEST CASE FOR VALID FIRST NAME
     UserRegistration userRegistration=new UserRegistration();
+    boolean result;
     String [] inputValidEmail={"abc@yahoo.com",
                                 "abc-100@yahoo.com",
                                 "abc.100@yahoo.com",
@@ -29,72 +30,159 @@ public class UserRegistrationTest {
                                 "abc@gmail.com.aa.au"};
 
     @Test
-    public void givenFirstName_WhenValid_ThenReturn() {
-        boolean result = userRegistration.validateFirstLastName("Nilesh");
+    public void givenFirstNameWithCapital_WhenValid_ThenReturnTrue() {
+        result = userRegistration.validateFirstLastName("Nilesh");
         Assert.assertTrue(result);
     }
-    //TEST CASE FOR INVALID FIRST NAME
+
     @Test
-    public void givenFirstName_WhenInValid_ThenReturn() {
-        boolean result=userRegistration.validateFirstLastName("nilesh");
-        Assert.assertFalse(result);
-    }
-    //TEST CASE FOR VALID LAST NAME
-    @Test
-    public void givenLasName_WhenValid_ThenReturn() {
-        boolean result = userRegistration.validateFirstLastName("Patil");
+    public void givenFirstWithNameAllCapital_WhenValid_ThenReturnTrue() {
+        result=userRegistration.validateFirstLastName("NILESH");
         Assert.assertTrue(result);
     }
-    //TEST CASE FOR INVALID LAST NAME
+
     @Test
-    public void givenLastName_WhenInValid_ThenReturn() {
-        boolean result = userRegistration.validateFirstLastName("patil");
+    public void givenFirstNameWithMinimumLength_WhenValid_ThenReturnTrue() {
+        result=userRegistration.validateFirstLastName("Nil");
+        Assert.assertTrue(result);
+    }
+
+    @Test
+    public void givenFirstNameWithNumber_WhenInValid_ThenReturnFalse() {
+        result=userRegistration.validateFirstLastName("Nilesh1");
         Assert.assertFalse(result);
     }
-    //TEST CASE FOR VALID EMAIL ID
+
     @Test
-    public void givenEmail_WhenValid_ThenReturn() {
-        for (int index=0;index<inputValidEmail.length;index++) {
-            boolean result = userRegistration.validateEmail(inputValidEmail[index]);
-            System.out.println(inputValidEmail[index]+" : "+result);
+    public void givenFirstNameWithoutFirstLetterCapital_WhenInValid_ThenReturnFalse() {
+        result=userRegistration.validateFirstLastName("nilesh");
+        Assert.assertFalse(result);
+
+    }
+
+    @Test
+    public void givenFirstNameWithLessThanMinimumLength_WhenInValid_ThenReturnFalse() {
+        result=userRegistration.validateFirstLastName("Ni");
+        Assert.assertFalse(result);
+    }
+
+    @Test
+    public void givenLasName_WhenValid_ThenReturnFalse() {
+        result = userRegistration.validateFirstLastName("Patil");
+        Assert.assertTrue(result);
+    }
+
+    @Test
+    public void givenLastNameWithAllCapitalLatter_WhenValid_ThenReturnTrue() {
+        result = userRegistration.validateFirstLastName("PATIL");
+        Assert.assertTrue(result);
+    }
+
+    @Test
+    public void givenLastNameWithMinimumLength_WhenValid_ThenReturnTrue() {
+        result=userRegistration.validateFirstLastName("Roy");
+        Assert.assertTrue(result);
+    }
+
+    @Test
+    public void givenLastName_WhenInValid_ThenReturnFalse() {
+        result = userRegistration.validateFirstLastName("patil");
+        Assert.assertFalse(result);
+    }
+
+    @Test
+    public void givenLastNameWithNumber_WhenInValid_ThenReturnFalse() {
+        result=userRegistration.validateFirstLastName("Patil2");
+        Assert.assertFalse(result);
+    }
+
+    @Test
+    public void givenLastNameWithLessThanMinimumLength_WhenInValid_ThenReturnFalse() {
+        result=userRegistration.validateFirstLastName("Pa");
+        Assert.assertFalse(result);
+    }
+
+    @Test
+    public void givenValidEmails_WhenValid_ThenReturnTrue() {
+        for (String validEmail:inputValidEmail) {
+            result = userRegistration.validateEmail(validEmail);
             Assert.assertTrue(result);
         }
     }
-    //TEST CASE FOR INVALID EMAIL ID
+
     @Test
-    public void givenEmail_WhenInvalid_ThenReturn() {
-        for (int index=0;index<inputInvalidEmail.length;index++) {
-            boolean result = userRegistration.validateEmail(inputInvalidEmail[index]);
-            System.out.println(inputInvalidEmail[index]+" : "+result);
+    public void givenInvalidEmail_WhenInvalid_ThenReturn() {
+        for (String invalidEmail:inputInvalidEmail) {
+            result = userRegistration.validateEmail(invalidEmail);
             Assert.assertFalse(result);
         }
     }
-    //TEST CASE FOR VALID MOBILE NUMBER
+
     @Test
-    public void givenMobileNumber_WhenValid_ThenReturn() {
-        boolean result = userRegistration.validateMobileNumber("91 9876543210");
+    public void givenMobileNumber_WhenValid_ThenReturnTrue() {
+        result = userRegistration.validateMobileNumber("91 9876543210");
         Assert.assertTrue(result);
     }
-    //TEST CASE FOR INVALID MOBILE NUMBER
+
     @Test
-    public void givenMobileNumber_WhenInvalid_ThenReturn() {
-        boolean result = userRegistration.validateMobileNumber("91 987654321");
+    public void givenMobileNumberWithLessThanFixSize_WhenInvalid_ThenReturnFalse() {
+        result = userRegistration.validateMobileNumber("91 987654321");
         Assert.assertFalse(result);
     }
+
+    @Test
+    public void givenMobileNumberWithoutCountryCode_WhenInvalid_ThenReturnFalse() {
+        result = userRegistration.validateMobileNumber("9876543210");
+        Assert.assertFalse(result);
+    }
+
     //TEST CASE FOR VALID PASSWORD WITH:
     //MINIMUM 8 CHARACTERS
     //AT LEAST 1 UPPER CASE CHARACTER
     //AT LEAST 1 NUMERIC NUMBER
     //EXACTLY 1 SPECIAL CHARACTER
     @Test
-    public void givenPassword_WhenValid_ThenReturn() {
-        boolean result = userRegistration.validatePassword("NeverGiveUp#46");
+    public void givenPasswordWithAllRules_WhenValid_ThenReturnTrue() {
+        result = userRegistration.validatePassword("NeverGiveUp#46");
         Assert.assertTrue(result);
     }
-    //TEST CASE FOR INVALID PASSWORD
     @Test
-    public void givenPassword_WhenInvalid_ThenReturn() {
-        boolean result = userRegistration.validatePassword("evergiveup46");
+    public void givenPasswordStartWithSpecialCharacter_WhenValid_ThenReturnTrue() {
+        result = userRegistration.validatePassword("#NeverGiveUp46");
+        Assert.assertTrue(result);
+    }
+
+    @Test
+    public void givenPasswordWithMinimumLength_WhenValid_ThenReturnTrue() {
+        result = userRegistration.validatePassword("Qwerty1#");
+        Assert.assertTrue(result);
+    }
+
+    @Test
+    public void givenPasswordStartWithNumber_WhenValid_ThenReturnTrue() {
+        result = userRegistration.validatePassword("46NeverGiveUp#");
+        Assert.assertTrue(result);
+    }
+
+    @Test
+    public void givenPasswordWithoutUpperCaseLatter_WhenInvalid_ThenReturnFalse() {
+        result = userRegistration.validatePassword("evergiveup46");
+        Assert.assertFalse(result);
+    }
+
+    @Test
+    public void givenPasswordWithoutSpecialCharacter_WhenInvalid_ThenReturnFalse() {
+        result = userRegistration.validatePassword("NeverGiveUp46");
+        Assert.assertFalse(result);
+    }
+    @Test
+    public void givenPasswordWithoutNumber_WhenInvalid_ThenReturnFalse() {
+        result = userRegistration.validatePassword("NeverGiveUp#");
+        Assert.assertFalse(result);
+    }
+    @Test
+    public void givenPasswordWithLessThanMinimumLength_WhenInvalid_ThenReturnFalse() {
+        result = userRegistration.validatePassword("Never1#");
         Assert.assertFalse(result);
     }
 }
